@@ -2,28 +2,11 @@
 
 using namespace std;
 
-#define max 1000
-
-int multiMatrices(int a[][max], int b[max][], int f, int c, int k){
-	int c[max][max];
-	for(int i=0; i<f; ++i)
-    for(int j=0; j<c; ++j)
-      for(int z=0; z<k; ++z)
-        c[i][j] += A[i][z] * B[z][j];
-  return c;
-}
+#define max 600
 
 int main(){
-	int a[2][3] = {{1,0,1},{0,1,2}};
-	int b[3][2] = {{3,5},{-1,0},{2,-1}};
-	int c[max][max];
 
-	c = multiMatrices(a, b, 3,3,2);
-
-
-
-
-
+	clock_t t;
 
 	double A[max][max], x[max], y[max];
 
@@ -37,6 +20,8 @@ int main(){
 		y[i]=0;
 	}
 
+	t = clock();
+
 	for (int i = 0; i < max; ++i)
 	{
 		for (int j = 0; j < max; ++j)
@@ -44,6 +29,18 @@ int main(){
 			y[i] += A[i][j]*x[j];
 		}
 	}
+	t = clock() - t;
+
+    printf ("Primer bucle anidado demoró %ld clicks (%f segundos).\n",t,((float)t)/CLOCKS_PER_SEC);
+
+
+	//Assign y = 0
+	for (int i = 0; i < max; ++i)
+	{
+		y[i]=0;
+	}
+
+	t = clock();
 
 	for (int j = 0; j < max; ++j)
 	{
@@ -52,8 +49,9 @@ int main(){
 			y[i] += A[i][j]*x[j];
 		}
 	}
+	t = clock() - t;
 
-	
+    printf ("Segundo bucle anidado demoró %ld clicks (%f segundos).\n",t,((float)t)/CLOCKS_PER_SEC);
 
 	return 0;
 }
