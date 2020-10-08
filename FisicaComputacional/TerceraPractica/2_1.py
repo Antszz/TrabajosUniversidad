@@ -8,8 +8,9 @@ angulo = np.deg2rad(60)
 C = 0.5
 m = 0.145
 r = 0.0367
-A = r*2
+A = np.pi * r * r
 p = 1.2
+print(A)
 
 h = 0.001
 pos = [[0],[0]]

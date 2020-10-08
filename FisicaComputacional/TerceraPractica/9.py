@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-h = 0.1
+h = 0.01
 r=8
 m=5
 pos = [[r],[0],[0]]
@@ -20,9 +20,11 @@ for i in pt:
 
     a = [-2 * x/r, -2 * y/r]
 
+    v = np.sqrt(pow(velocidad[0][-1], 2) + pow(velocidad[1][-1],2))
+    print(v*v/r)
+
     velocidad[0].append(velocidad[0][-1] + a[0]*h)
     velocidad[1].append(velocidad[1][-1] + a[1]*h)
-
 
 plt.plot(pos[0],pos[1])    
 plt.xlabel('espacio-x')

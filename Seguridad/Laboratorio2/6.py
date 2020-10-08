@@ -27,7 +27,7 @@ else:
 clave = input("Ingrese la clave : ")
 clave = clave.upper()
 
-archivo = open("textoLab.txt", 'r')
+archivo = open("textoLabRes.txt", 'r')
 mensaje = archivo.read()
 
 mensaje = mensaje.strip()
@@ -45,7 +45,7 @@ mensaje = mensaje2
 msg_encriptado = ""
 
 for i in range(len(mensaje)):
-	valor = (diccionario[mensaje[i]] + diccionario[clave[i%len(clave)]]) % modulo
+	valor = (diccionario[mensaje[i]] - diccionario[clave[i%len(clave)]]) % modulo
 	if(i==0):
 		print(valor)
 	msg_encriptado += list(diccionario.keys())[list(diccionario.values()).index(valor)]
@@ -59,6 +59,6 @@ for i in range(len(msg_encriptado)):
 
 print(frecuencias)
 
-f=open("textoLabRes.txt","w")
+f=open("textoLab.txt","w")
 f.write(msg_encriptado)
 f.close()
