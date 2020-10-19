@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-h = 0.0001
+h = 0.001
 k = 0.1
 m = 0.2
 
@@ -22,7 +22,6 @@ K = []
 E = []
 
 for i in pt:
-
     pos.append(px)
     velocidad.append(velo)
     aceleracion.append((-k/m)*px)
@@ -65,29 +64,18 @@ plt.grid(True)
 
 plt.show()
 
-plt.subplot(2,2,1)
-plt.plot(U,pos)    
+plt.plot(U,pos)
+plt.plot(E,pos)
+plt.plot(K,pos)
 plt.xlabel('E. elastica')
 plt.ylabel('espacio-x')
-plt.title('U - x')
-plt.grid(True)
-
-plt.subplot(2,2,2)
-plt.plot(K,pos)    
-plt.xlabel('E. cinética')
-plt.ylabel('espacio-x')
-plt.title('K - x')
-plt.grid(True)
-
-plt.subplot(2,2,3)
-plt.plot(E,pos)    
-plt.xlabel('E. total')
-plt.ylabel('espacio-x')
-plt.title('E - x')
+plt.title('U,E,K - x')
 plt.grid(True)
 
 plt.show()
+
 """
+
 g2 = plt.axes(projection='3d')
 g2.scatter3D(velocidad,pos,pt)
 g2.set_xlabel('v')
