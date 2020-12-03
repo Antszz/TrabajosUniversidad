@@ -10,7 +10,7 @@ h=0.1
 t=1800
 
 R=2
-d=10
+d=4
 
 pt=np.arange(0,t,h)
 lvx = np.arange(0,0.4,0.05)
@@ -27,45 +27,46 @@ plt.gcf().gca().add_artist(cuerpo2)
 plt.xlim([-50,50])
 plt.ylim([-50,50])
 
-x=10
-y=10
-vx=0.3
+x=6
+y=0
+vx=0
 vy=0
 px=[x]
 py=[y]
 
-graficar, = plt.plot([], [])
-x_datos, y_datos=[],[]
+for vx0 in lvx:
+    x = 20
+    y = 30
+    vx = vx0
+    vy = 0
+    px = [x]
+    py = [y]
 
-def animate(i):
-    global x,y,vx,vy
-    x1 = x + d
-    x2 = x - d
+    for t in pt:
+        x1 = x + d
+        x2 = x - d
+        x3 = x
+        y2 = y - d2
+        ax = -(x1)/((x1)*2+y2)(1.5)-(x2)/((x2)2+y2)(1.5)-x3/(x32+y22)*(1.5)
+        ay = -y/((x1)*2+y2)(1.5)-(y/((x2)2+y2)(1.5))-y2/(x32+y22)*(1.5)
+        vx = vx + ax*h;
+        x = x + vx*h
+        vy = vy + ay*h 
+        y = y + vy*h
+        
+        if x>=70:
+            break
+        if y>=70:
+            break
+        if (((x1)*2 + (y)*2) <=R*R):
+            break
+        if (((x2)*2 + (y)*2) <=R*R):
+            break
+        if(((x3)*2+(y2)*2) <=R*R):
+            break
+        px.append(x)
+        py.append(y)
 
-    ax.append(-x1 / (x1**2 + y**2)**(1.5) - x2 / (x2**2 + y**2) ** 1.5)
-    ay.append(-y / (x1**2+y**2)**(1.5) - y / (x2**2 + y**2) ** 1.5)
-    
-    vx = vx + ax[-1]*h;
-    vy = vy + ay[-1]*h
-    
-    x = x + vx*h 
-    y = y + vy*h
-    redDot.set_data(x, y)
-    if x >= 50:
-        return redDot, graficar,
-    if y >= 50:
-        return redDot, graficar,
-    if x1**2 + y**2 <= R**2:
-        return redDot, graficar,
-    if x2**2 + y**2 <= R**2:
-        return redDot, graficar,
- 
-    x_datos.append(x)
-    y_datos.append(y)
-    graficar.set_data(x_datos, y_datos)
-    return redDot, graficar,
+    plt.plot(px,py)
 
-myAnimation = animation.FuncAnimation(fig, animate, frames=np.arange(0,t,h), \
-                                      interval=10000, blit=True, repeat=False)
-
-myAnimation.save('animation3.mp4', writer='ffmpeg', fps=960);
+plt.show()
