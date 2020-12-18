@@ -54,11 +54,11 @@ for i in range(65,91):
 
 mensajeDes = ""
 clave = 0
-for i in range(0,26):
-    if (diccionario[mostPopularPlain] + i) % 26 == diccionario[mostPopularEncrypt]:
-        clave = chr(i+65)
+for k in range(0,26):
+    if (diccionario[mostPopularPlain] + k) % 26 == diccionario[mostPopularEncrypt]:
+        clave = chr(k+65)
         for i in range(len(mensajeEncriptado)):
             valor = (diccionario[mensajeEncriptado[i]] - diccionario[clave[i%len(clave)]]) % 26
             mensajeDes += list(diccionario.keys())[list(diccionario.values()).index(valor)]
-        print('Key = %s: %s' % (clave, mensajeDes))
+        print('Key = %s: %s' % (k, mensajeDes))
         break
