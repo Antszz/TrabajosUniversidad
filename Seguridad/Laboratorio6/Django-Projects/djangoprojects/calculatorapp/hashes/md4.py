@@ -7,7 +7,6 @@ class MD4:
     width = 32
     mask = 0xFFFFFFFF
 
-    # Unlike, say, SHA-1, MD4 uses little-endian. Fascinating!
     h = [0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476]
 
     def __init__(self, msg=None):
