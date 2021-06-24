@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class WordCount {
+public class BigramCount {
 
     public static class TokenizerMapper
         extends Mapper<Object, Text, Text, IntWritable>{
@@ -31,14 +31,21 @@ public class WordCount {
             Text word2 = new Text();
             word2.set("");
 
+            Text all_bigrams = new Text();
+            all_bigrams.set("All Bigrams: ");
+
             while (itr.hasMoreTokens()) {
                 word2.set(itr.nextToken());
+                // Hacemos esto para no asociar palabras con otro string vacio y se generen bigramas falsos
                 if(((Text) word1).toString().equals("") || ((Text) word2).toString().equals("")){
                     continue;
                 }
+                // con replaceAll("\\p{Punct}", "") limpiamos la data de los signos de puntuacion
                 bigram.set(((Text) word1).toString().replaceAll("\\p{Punct}", "") + ' ' + ((Text) word2).toString().replaceAll("\\p{Punct}", ""));
                 context.write(bigram, one);
                 word1 = word2;
+                // De esta manera contamos el total de bigramas
+                context.write(all_bigrams, one);
             }
         }
     }
@@ -51,6 +58,7 @@ public class WordCount {
                         Context context
                         ) throws IOException, InterruptedException {
             int sum = 0;
+            // contaremos cuantas veces se repite un bigrama
             for (IntWritable val : values) {
                 sum += val.get();
             }
@@ -62,7 +70,7 @@ public class WordCount {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "word count");
-        job.setJarByClass(WordCount.class);
+        job.setJarByClass(BigramCount.class);
         job.setMapperClass(TokenizerMapper.class);
         job.setCombinerClass(IntSumReducer.class);
         job.setReducerClass(IntSumReducer.class);
